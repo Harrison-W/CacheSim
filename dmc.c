@@ -41,6 +41,16 @@ void main(int argc, char* argv[]) {
   /* read the addresses and simulate the cache */
   while(scanf("%x", &addr) > 0) {
     /* your code goes here */
+    unsigned int tag = addr/linesize;
+    if (tags[tag % cachelines] == tag) {
+	//got a hit
+	cycles++;
+	hit++;
+    } else {
+	tags[tag % cachelines] = tag;
+	cycles += 100;
+    	miss++;
+    }
   }
   printf("hits=%d misses=%d\n", hit, miss);
   printf("cycles=%d\n", cycles);
